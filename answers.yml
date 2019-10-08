@@ -6,13 +6,13 @@ GitHubUrl: https://github.com/lorenzinigiovanni/dncs-lab
 Subnets:
   HostsA:
     RequiredAddresses: 175
-    SubnetAddress: YourHostsASubnetAddress
-    SubnetPrefixLength: YourHostsASubnetPrefixLength
+    SubnetAddress: 192.168.1.0
+    SubnetPrefixLength: 24
   HostsB:
     RequiredAddresses: 213
-    SubnetAddress: YourHostsBSubnetAddress
-    SubnetPrefixLength: YourHostsBSubnetPrefixLength
+    SubnetAddress: 192.168.2.0
+    SubnetPrefixLength: 24
   Hub:
     RequiredAddresses: 118
-    SubnetAddress: YourHubSubnetAddress
-    SubnetPrefixLength: YourHubSubnetPrefixLength
+    SubnetAddress: 192.168.3.0
+    SubnetPrefixLength: 25
