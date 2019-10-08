@@ -1,6 +1,12 @@
 # DNCS-LAB
 
+**Author:** Lorenzini Giovanni  
+**Student number:** 193473
+
 This repository contains the Vagrant files required to run the virtual lab environment used in the DNCS course.
+
+# Network topology
+
 ```
 
 
@@ -16,7 +22,7 @@ This repository contains the Vagrant files required to run the virtual lab envir
         |  M  |                +------------+             +------------+
         |  A  |                      |eth1                       |eth1
         |  N  |                      |                           |
-        |  A  |                      |                           |
+        |  A  |                      |                           |eth1
         |  G  |                      |                     +-----+----+
         |  E  |                      |eth1                 |          |
         |  M  |            +-------------------+           |          |
