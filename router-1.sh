@@ -8,5 +8,4 @@ ip addr add 192.168.1.1/24 dev enp0s8.1
 ip addr add 192.168.2.1/24 dev enp0s8.2
 
 ip link set enp0s9 up
-ip link set enp0s8.1 up
-ip link set enp0s8.2 up
+ip link set enp0s8 up
