@@ -7,6 +7,8 @@ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bi
 apt update
 apt install -y docker-ce
 
+docker pull nginx
+
 ip addr add 192.168.3.2/25 dev enp0s8
 
 ip link set enp0s8 up
