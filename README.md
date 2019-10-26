@@ -147,3 +147,16 @@ The assignment deliverable consists of a Github repository containing:
 | enp0s8 | Trunk | - |
 | enp0s9 | Access | 1 |
 | enp0s10 | Access | 2 | 
+
+## IP Addresses
+
+| Device | Interface | Subnet | IP | Prefix | 
+| :---: |  :---: | :---: | :---: | :---: |
+| host-a | enp0s8 | Host-A | 192.168.1.2 | /24 |
+| host-b | enp0s8 | Host-B | 192.168.2.2 | /24 |
+| host-c | enp0s8 | Hub | 192.168.3.2 | /25 |
+| router-1 | enp0s8.1 | Host-A | 192.168.1.1 | /24 |
+| router-1 | enp0s8.2 | Host-B | 192.168.2.1 | /24 |
+| router-1 | enp0s9 | D | 192.168.3.129 | /30 |
+| router-2 | enp0s8 | Hub | 192.168.3.1 | /25 |
+| router-2 | enp0s9 | D | 192.168.3.130 | /30 |
