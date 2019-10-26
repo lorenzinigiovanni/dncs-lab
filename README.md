@@ -160,3 +160,44 @@ The assignment deliverable consists of a Github repository containing:
 | router-1 | enp0s9 | D | 192.168.3.129 | /30 |
 | router-2 | enp0s8 | Hub | 192.168.3.1 | /25 |
 | router-2 | enp0s9 | D | 192.168.3.130 | /30 |
+
+## Routing Tables
+
+### host-a routing table
+
+| Destination | Prefix | Gateway | Interface |
+| :---: |  :---: | :---: | :---: |
+| 192.168.0.0 | /16 | 192.168.1.1 | enp0s8 |
+| 192.168.1.0 | /24 | - | enp0s8 |
+
+### host-b routing table
+
+| Destination | Prefix | Gateway | Interface |
+| :---: |  :---: | :---: | :---: |
+| 192.168.0.0 | /16 | 192.168.2.1 | enp0s8 |
+| 192.168.2.0 | /24 | - | enp0s8 |
+
+### host-c routing table
+
+| Destination | Prefix | Gateway | Interface |
+| :---: |  :---: | :---: | :---: |
+| 192.168.0.0 | /16 | 192.168.3.1 | enp0s8 |
+| 192.168.3.0 | /25 | - | enp0s8 |
+
+### router-1 routing table
+
+| Destination | Prefix | Gateway | Interface |
+| :---: |  :---: | :---: | :---: |
+| 192.168.1.0 | /24 | - | enp0s8.1 |
+| 192.168.2.0 | /24 | - | enp0s8.2 |
+| 192.168.3.0 | /25 | 192.168.3.130 | enp0s9 |
+| 192.168.3.128 | /30 | - | enp0s9 |
+
+### router-2 routing table
+
+| Destination | Prefix | Gateway | Interface |
+| :---: |  :---: | :---: | :---: |
+| 192.168.1.0 | /24 | 192.168.3.129 | enp0s9 |
+| 192.168.2.0 | /24 | 192.168.3.129 | enp0s9 |
+| 192.168.3.0 | /25 | - | enp0s8 |
+| 192.168.3.128 | /30 | - | enp0s9 |
