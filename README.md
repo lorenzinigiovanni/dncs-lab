@@ -139,3 +139,11 @@ The assignment deliverable consists of a Github repository containing:
 | :---: |  :---: | :---: | :---: |
 | Host-A | 1 | enp0s9 | enp0s8.1 |
 | Host-B | 2 | enp0s10 | enp0s8.2 |
+
+## Switch Ports
+
+| Interface | Interface type | VLAN ID |
+| :---: |  :---: | :---: |
+| enp0s8 | Trunk | - |
+| enp0s9 | Access | 1 |
+| enp0s10 | Access | 2 | 
