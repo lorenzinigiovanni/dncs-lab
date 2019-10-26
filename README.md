@@ -132,3 +132,10 @@ The assignment deliverable consists of a Github repository containing:
 | Host-B | 192.168.2.0 | /24 | 254 | host-b (enp0s8)<br>router-1 (enp0s8.2) |
 | Hub | 192.168.3.0 | /25 | 126 | host-c (enp0s8)<br>router-2 (enp0s8) |
 | D | 192.168.3.128 | /30 | 2 | router-1 (enp0s9)<br>router-2 (enp0s9) |
+
+## VLANs
+
+| Subnet | VLAN ID | Switch interface | Router interface |
+| :---: |  :---: | :---: | :---: |
+| Host-A | 1 | enp0s9 | enp0s8.1 |
+| Host-B | 2 | enp0s10 | enp0s8.2 |
