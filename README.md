@@ -201,3 +201,170 @@ The assignment deliverable consists of a Github repository containing:
 | 192.168.2.0 | /24 | 192.168.3.129 | enp0s9 |
 | 192.168.3.0 | /25 | - | enp0s8 |
 | 192.168.3.128 | /30 | - | enp0s9 |
+
+## Provisioning shell scripts
+
+### host-a provisioning shell script
+
+Assign an IP address of Host-A subnet
+```
+$ ip addr add 192.168.1.2/24 dev enp0s8
+```
+
+Enable the link
+```
+$ ip link set enp0s8 up
+```
+
+Add a route to accede to the netowrk
+```
+$ ip route add 192.168.0.0/16 via 192.168.1.1
+```
+
+### host-b provisioning shell script
+
+Assign an IP address of Host-B subnet
+```
+$ ip addr add 192.168.2.2/24 dev enp0s8
+```
+
+Enable the link
+```
+$ ip link set enp0s8 up
+```
+
+Add a route to accede to the netowrk
+```
+$ ip route add 192.168.0.0/16 via 192.168.2.1
+```
+
+### host-c provisioning shell script
+
+Install docker
+```
+$ apt update
+$ apt install apt-transport-https ca-certificates curl software-properties-common
+$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
+$ add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+$ apt update
+$ apt install -y docker-ce
+```
+
+Download nginx docker image
+```
+$ docker pull dustnic82/nginx-test
+```
+
+Create a html file to serve
+```
+$ mkdir /www
+$ echo -e '<!DOCTYPE html>\n<html>\n<head>\n    <meta charset="UTF-8">\n    <title>DNCS LAB</title>\n</head>\n<body>\n    <h1>DNCS LAB</h1>\n    <h3>Author: Lorenzini Giovanni</h3>\n    <h3>Student number: 193473</h3>\n</body>\n</html>' > /www/index.html
+```
+
+Run the nginx docker container
+```
+$ docker run --name nginx -v /www:/usr/share/nginx/html -d -p 80:80 dustnic82/nginx-test
+```
+
+Assign an IP address of Hub subnet
+```
+$ ip addr add 192.168.3.2/25 dev enp0s8
+```
+
+Enable the link
+```
+$ ip link set enp0s8 up
+```
+
+Add a route to accede to the netowrk
+```
+$ ip route add 192.168.0.0/16 via 192.168.3.1
+```
+
+### switch provisioning shell script
+
+Install open switch
+```
+$ apt-get update
+$ apt-get install -y tcpdump
+$ apt-get install -y openvswitch-common openvswitch-switch apt-transport-https ca-certificates curl software-properties-common
+```
+
+Create a bridge in the switch
+```
+$ ovs-vsctl add-br br0
+```
+
+Bind the trunk interface to the bridge
+```
+$ ovs-vsctl add-port br0 enp0s8
+```
+
+Bind the access interfaces to the bridge
+```
+$ ovs-vsctl add-port br0 enp0s9 tag=1
+$ ovs-vsctl add-port br0 enp0s10 tag=2
+```
+
+Enable the links
+```
+$ ip link set enp0s8 up
+$ ip link set enp0s9 up
+$ ip link set enp0s10 up
+```
+
+### router-1 provisioning shell script
+
+Enable IP forwarding
+```
+$ sysctl net.ipv4.ip_forward=1
+```
+
+Create VLAN interfaces to receive and send over the trunk link
+```
+$ ip link add link enp0s8 name enp0s8.1 type vlan id 1
+$ ip link add link enp0s8 name enp0s8.2 type vlan id 2
+```
+
+Assign IP addresses of the right subnet to the interfaces 
+```
+$ ip addr add 192.168.3.129/30 dev enp0s9
+$ ip addr add 192.168.1.1/24 dev enp0s8.1
+$ ip addr add 192.168.2.1/24 dev enp0s8.2
+```
+
+Enable the links
+```
+$ ip link set enp0s9 up
+$ ip link set enp0s8 up
+```
+
+Add route to subnet Hub by router-2 gateway
+```
+$ ip route add 192.168.3.0/25 via 192.168.3.130
+```
+
+### router-2 provisioning shell script
+
+Enable IP forwarding
+```
+$ sysctl net.ipv4.ip_forward=1
+```
+
+Assign IP addresses of the right subnet to the interfaces 
+```
+$ ip addr add 192.168.3.130/30 dev enp0s9
+$ ip addr add 192.168.3.1/25 dev enp0s8
+```
+
+Enable the links
+```
+$ ip link set enp0s9 up
+$ ip link set enp0s8 up
+```
+
+Add route to subnet Host-A and Host-B by router-1 gateway
+```
+$ ip route add 192.168.1.0/24 via 192.168.3.129
+$ ip route add 192.168.2.0/24 via 192.168.3.129
+```
