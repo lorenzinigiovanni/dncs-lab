@@ -9,7 +9,6 @@ This repository contains the Vagrant files required to run the virtual lab envir
 
 ```
 
-
         +-----------------------------------------------------+
         |                                                     |
         |                                                     |enp0s3
@@ -48,8 +47,6 @@ This repository contains the Vagrant files required to run the virtual lab envir
         |                                                        |
         +--------------------------------------------------------+
 
-
-
 ```
 
 # Requirements
@@ -63,29 +60,36 @@ This repository contains the Vagrant files required to run the virtual lab envir
 # How-to
  - Install Virtualbox and Vagrant
  - Clone this repository
-`git clone https://github.com/dustnic/dncs-lab`
- - You should be able to launch the lab from within the cloned repo folder.
 ```
-cd dncs-lab
-[~/dncs-lab] vagrant up
+~$ git clone https://github.com/lorenzinigiovanni/dncs-lab
+```
+ - You should be able to launch the lab from within the cloned repo folder
+```
+~$ cd dncs-lab
+~/dncs-lab$ vagrant up
 ```
 Once you launch the vagrant script, it may take a while for the entire topology to become available.
- - Verify the status of the 4 VMs
+ - Verify the status of the 6 VMs
  ```
- [dncs-lab]$ vagrant status                                                                                                                                                                
+~/dncs-lab$ vagrant status                                                                                                                                                                
 Current machine states:
 
-router                    running (virtualbox)
+router-1                  running (virtualbox)
+router-2                  running (virtualbox)
 switch                    running (virtualbox)
 host-a                    running (virtualbox)
 host-b                    running (virtualbox)
+host-c                    running (virtualbox)
 ```
 - Once all the VMs are running verify you can log into all of them:
-`vagrant ssh router`
-`vagrant ssh switch`
-`vagrant ssh host-a`
-`vagrant ssh host-b`
-`vagrant ssh host-c`
+```
+~/dncs-lab$ vagrant ssh router-1
+~/dncs-lab$ vagrant ssh router-2
+~/dncs-lab$ vagrant ssh switch
+~/dncs-lab$ vagrant ssh host-a
+~/dncs-lab$ vagrant ssh host-b
+~/dncs-lab$ vagrant ssh host-c
+```
 
 # Assignment
 This section describes the assignment, its requirements and the tasks the student has to complete.
