@@ -167,38 +167,37 @@ The assignment deliverable consists of a Github repository containing:
 
 | Destination | Prefix | Gateway | Interface |
 | :---: |  :---: | :---: | :---: |
-| 192.168.0.0 | /16 | 192.168.1.1 | enp0s8 |
+| default | - | 192.168.1.1 | enp0s8 |
 | 192.168.1.0 | /24 | - | enp0s8 |
 
 ### host-b routing table
 
 | Destination | Prefix | Gateway | Interface |
 | :---: |  :---: | :---: | :---: |
-| 192.168.0.0 | /16 | 192.168.2.1 | enp0s8 |
+| default | - | 192.168.2.1 | enp0s8 |
 | 192.168.2.0 | /24 | - | enp0s8 |
 
 ### host-c routing table
 
 | Destination | Prefix | Gateway | Interface |
 | :---: |  :---: | :---: | :---: |
-| 192.168.0.0 | /16 | 192.168.3.1 | enp0s8 |
+| default | - | 192.168.3.1 | enp0s8 |
 | 192.168.3.0 | /25 | - | enp0s8 |
 
 ### router-1 routing table
 
 | Destination | Prefix | Gateway | Interface |
 | :---: |  :---: | :---: | :---: |
+| default | - | 192.168.3.130 | enp0s9 |
 | 192.168.1.0 | /24 | - | enp0s8.1 |
 | 192.168.2.0 | /24 | - | enp0s8.2 |
-| 192.168.3.0 | /25 | 192.168.3.130 | enp0s9 |
 | 192.168.3.128 | /30 | - | enp0s9 |
 
 ### router-2 routing table
 
 | Destination | Prefix | Gateway | Interface |
 | :---: |  :---: | :---: | :---: |
-| 192.168.1.0 | /24 | 192.168.3.129 | enp0s9 |
-| 192.168.2.0 | /24 | 192.168.3.129 | enp0s9 |
+| default | - | 192.168.3.129 | enp0s9 |
 | 192.168.3.0 | /25 | - | enp0s8 |
 | 192.168.3.128 | /30 | - | enp0s9 |
 
@@ -216,9 +215,9 @@ Enable the link
 $ ip link set enp0s8 up
 ```
 
-Add a route to accede to the netowrk
+Add default route to accede to the network
 ```
-$ ip route add 192.168.0.0/16 via 192.168.1.1
+$ ip route add default via 192.168.1.1
 ```
 
 ### host-b provisioning shell script
@@ -233,9 +232,9 @@ Enable the link
 $ ip link set enp0s8 up
 ```
 
-Add a route to accede to the netowrk
+Add default route to accede to the network
 ```
-$ ip route add 192.168.0.0/16 via 192.168.2.1
+$ ip route add default via 192.168.2.1
 ```
 
 ### host-c provisioning shell script
@@ -276,9 +275,9 @@ Enable the link
 $ ip link set enp0s8 up
 ```
 
-Add a route to accede to the netowrk
+Add default route to accede to the network
 ```
-$ ip route add 192.168.0.0/16 via 192.168.3.1
+$ ip route add default via 192.168.3.1
 ```
 
 ### switch provisioning shell script
@@ -339,9 +338,9 @@ $ ip link set enp0s9 up
 $ ip link set enp0s8 up
 ```
 
-Add route to subnet Hub by router-2 gateway
+Add default route to other router
 ```
-$ ip route add 192.168.3.0/25 via 192.168.3.130
+$ ip route add default via 192.168.3.130
 ```
 
 ### router-2 provisioning shell script
@@ -363,8 +362,7 @@ $ ip link set enp0s9 up
 $ ip link set enp0s8 up
 ```
 
-Add route to subnet Host-A and Host-B by router-1 gateway
+Add default route to other router
 ```
-$ ip route add 192.168.1.0/24 via 192.168.3.129
-$ ip route add 192.168.2.0/24 via 192.168.3.129
+$ ip route add default via 192.168.3.129
 ```
