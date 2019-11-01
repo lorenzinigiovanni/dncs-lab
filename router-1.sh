@@ -12,4 +12,4 @@ ip addr add 192.168.2.1/24 dev enp0s8.2
 ip link set enp0s9 up
 ip link set enp0s8 up
 
-ip route add 192.168.3.0/25 via 192.168.3.130
+ip route add default via 192.168.3.130
