@@ -424,3 +424,17 @@ default via 10.0.2.2 dev enp0s3 proto dhcp src 10.0.2.15 metric 100
 192.168.2.0/24 dev enp0s8.2 proto kernel scope link src 192.168.2.1
 192.168.3.128/30 dev enp0s9 proto kernel scope link src 192.168.3.129
 ```
+
+## host-c test
+
+### SSH in host-c
+```
+~/dncs-lab$ vagrant ssh host-c
+```
+
+### Check if docker container is running
+```
+vagrant@host-c:~$ sudo docker ps
+CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                         NAMES
+3ab2d86214b3        dustnic82/nginx-test   "nginx -g 'daemon of…"   4 hours ago         Up 4 hours          0.0.0.0:80->80/tcp, 443/tcp   nginx
+```
