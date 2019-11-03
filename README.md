@@ -156,7 +156,7 @@ The assignment deliverable consists of a Github repository containing:
 
 | Device | Interface | Subnet | IP | Prefix | 
 | :---: |  :---: | :---: | :---: | :---: |
-| host-a | enp0s8 | Host-A | 192.168.1.2 | /24 |
+| host-a | enp0s8 | Host-A | DHCP | /24 |
 | host-b | enp0s8 | Host-B | 192.168.2.2 | /24 |
 | host-c | enp0s8 | Hub | 192.168.3.2 | /25 |
 | router-1 | enp0s8.1 | Host-A | 192.168.1.1 | /24 |
@@ -211,19 +211,14 @@ Each machine execute a dedicated script at provisioning. The scripts assign IPs,
 
 ## host-a provisioning shell script
 
-Assign an IP address of Host-A subnet
-```
-$ ip addr add 192.168.1.2/24 dev enp0s8
-```
-
 Enable the link
 ```
 $ ip link set enp0s8 up
 ```
 
-Add default route to accede to the network
+Get a DHCP address for interface enp0s8
 ```
-$ ip route add default via 192.168.1.1
+$ dhclient enp0s8
 ```
 
 ## host-b provisioning shell script
@@ -319,6 +314,23 @@ $ ip link set enp0s10 up
 ```
 
 ## router-1 provisioning shell script
+
+Install ISC DHCP Server
+```
+apt update
+apt install -y isc-dhcp-server
+```
+
+Create DHCP configuration files
+```
+echo -e 'INTERFACESv4="enp0s8.1"\nINTERFACESv6=""' > /etc/default/isc-dhcp-server
+echo -e 'default-lease-time 600;\nmax-lease-time 7200;\nddns-update-style none;\nsubnet 192.168.1.0 netmask 255.255.255.0 {\n        range 192.168.1.2 192.168.1.254;\n        option subnet-mask 255.255.255.0;\n        option routers 192.168.1.1;\n}' > /etc/dhcp/dhcpd.conf
+```
+
+Start DHCP server service
+```
+systemctl start isc-dhcp-server.service
+```
 
 Enable IP forwarding
 ```
