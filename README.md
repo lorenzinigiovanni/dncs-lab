@@ -404,3 +404,23 @@ vagrant@switch:~$ sudo ovs-appctl fdb/show br0
 - The second record is host-a on port 2 and VLAN 1
 - The third record is host-b on port 3 and VLAN 2
 - The fourth record is router-1 on port 1 and VLAN 2
+
+## router-1 and router-2 test
+
+### SSH in router-1 or router-2
+```
+~/dncs-lab$ vagrant ssh router-1
+~/dncs-lab$ vagrant ssh router-2
+```
+
+### View the routing table
+```
+vagrant@router-1:~$ ip r show
+default via 192.168.3.130 dev enp0s9 
+default via 10.0.2.2 dev enp0s3 proto dhcp src 10.0.2.15 metric 100 
+10.0.2.0/24 dev enp0s3 proto kernel scope link src 10.0.2.15
+10.0.2.2 dev enp0s3 proto dhcp scope link src 10.0.2.15 metric 100
+192.168.1.0/24 dev enp0s8.1 proto kernel scope link src 192.168.1.1
+192.168.2.0/24 dev enp0s8.2 proto kernel scope link src 192.168.2.1
+192.168.3.128/30 dev enp0s9 proto kernel scope link src 192.168.3.129
+```
