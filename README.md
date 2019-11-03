@@ -288,7 +288,7 @@ $ ip route add default via 192.168.3.1
 
 ## switch provisioning shell script
 
-Install open switch
+Install Open vSwitch
 ```
 $ apt-get update
 $ apt-get install -y tcpdump
