@@ -438,3 +438,53 @@ vagrant@host-c:~$ sudo docker ps
 CONTAINER ID        IMAGE                  COMMAND                  CREATED             STATUS              PORTS                         NAMES
 3ab2d86214b3        dustnic82/nginx-test   "nginx -g 'daemon of…"   4 hours ago         Up 4 hours          0.0.0.0:80->80/tcp, 443/tcp   nginx
 ```
+
+## host-a and host-b test
+
+### SSH in host-a or host-b
+```
+~/dncs-lab$ vagrant ssh host-a
+~/dncs-lab$ vagrant ssh host-b
+```
+
+### Ping host-c
+```
+vagrant@host-a:~$ ping 192.168.3.2
+PING 192.168.3.2 (192.168.3.2) 56(84) bytes of data.
+64 bytes from 192.168.3.2: icmp_seq=1 ttl=62 time=0.828 ms
+64 bytes from 192.168.3.2: icmp_seq=2 ttl=62 time=0.615 ms
+^C
+--- 192.168.3.2 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1001ms
+rtt min/avg/max/mdev = 0.615/0.721/0.828/0.109 ms
+```
+host-c is reachable by host-a
+
+### Tracepath host-c
+```
+vagrant@host-a:~$ tracepath 192.168.3.2
+ 1?: [LOCALHOST]                      pmtu 1500
+ 1:  _gateway                                              0.470ms 
+ 1:  _gateway                                              0.347ms
+ 2:  192.168.3.130                                         0.496ms 
+ 3:  192.168.3.2                                           0.612ms reached
+     Resume: pmtu 1500 hops 3 back 3
+```
+To reach host-c (192.168.3.2) the packet travel through router-1 (gateway) and router-2 (192.168.3.130)
+
+### Get the index html page from the webserver hosted on host-c
+```
+vagrant@host-a:~$ curl 192.168.3.2
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>DNCS LAB</title>
+</head>
+<body>
+    <h1>DNCS LAB</h1>
+    <h3>Author: Lorenzini Giovanni</h3>
+    <h3>Student number: 193473</h3>
+</body>
+</html>
+```
