@@ -374,3 +374,12 @@ $ ip route add default via 192.168.3.129
 ```
 
 # How to Test
+
+## Run the project
+
+Clone the repository, create and configure the VMs
+```
+~$ git clone https://github.com/lorenzinigiovanni/dncs-lab
+~$ cd dncs-lab
+~/dncs-lab$ vagrant up
+```
