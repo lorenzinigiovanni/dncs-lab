@@ -383,3 +383,24 @@ Clone the repository, create and configure the VMs
 ~$ cd dncs-lab
 ~/dncs-lab$ vagrant up
 ```
+
+## switch test
+
+### SSH in switch
+```
+~/dncs-lab$ vagrant ssh switch
+```
+
+### View the switching table
+```
+vagrant@switch:~$ sudo ovs-appctl fdb/show br0
+ port  VLAN  MAC                Age
+    1     1  08:00:27:ab:11:e5   17
+    2     1  08:00:27:73:ef:5a   17
+    3     2  08:00:27:80:0e:b9    1
+    1     2  08:00:27:ab:11:e5    1
+```
+- The first record is router-1 on port 1 and VLAN 1
+- The second record is host-a on port 2 and VLAN 1
+- The third record is host-b on port 3 and VLAN 2
+- The fourth record is router-1 on port 1 and VLAN 2
