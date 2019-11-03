@@ -205,9 +205,11 @@ The assignment deliverable consists of a Github repository containing:
 | 192.168.3.0 | /25 | - | enp0s8 |
 | 192.168.3.128 | /30 | - | enp0s9 |
 
-## Provisioning shell scripts
+# Provisioning Shell Scripts
 
-### host-a provisioning shell script
+Each machine execute a dedicated script at provisioning. The scripts assign IPs, set routes and other things.
+
+## host-a provisioning shell script
 
 Assign an IP address of Host-A subnet
 ```
@@ -224,7 +226,7 @@ Add default route to accede to the network
 $ ip route add default via 192.168.1.1
 ```
 
-### host-b provisioning shell script
+## host-b provisioning shell script
 
 Assign an IP address of Host-B subnet
 ```
@@ -241,7 +243,7 @@ Add default route to accede to the network
 $ ip route add default via 192.168.2.1
 ```
 
-### host-c provisioning shell script
+## host-c provisioning shell script
 
 Install docker
 ```
@@ -284,7 +286,7 @@ Add default route to accede to the network
 $ ip route add default via 192.168.3.1
 ```
 
-### switch provisioning shell script
+## switch provisioning shell script
 
 Install open switch
 ```
@@ -316,7 +318,7 @@ $ ip link set enp0s9 up
 $ ip link set enp0s10 up
 ```
 
-### router-1 provisioning shell script
+## router-1 provisioning shell script
 
 Enable IP forwarding
 ```
@@ -347,7 +349,7 @@ Add default route to other router
 $ ip route add default via 192.168.3.130
 ```
 
-### router-2 provisioning shell script
+## router-2 provisioning shell script
 
 Enable IP forwarding
 ```
