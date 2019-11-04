@@ -128,6 +128,19 @@ The assignment deliverable consists of a Github repository containing:
 
 # Design
 
+## Introduction
+
+Four subnets are necessary, the three indicated in the design requirements and one to link the routers (*D* subnet).
+To keep *Hosts-A* and *Hosts-B* subnets separate I've used two VLANs.
+
+The **switch** is link by a trunk link to **router-1**.
+In this link flow VLAN tagged traffic.
+**host-a** and **host-b** are linked to **switch** through two access ports.
+
+In *Hosts-B*, *Hub* and *D* subnets all the IP addresses are statically assigned to routers and hosts.
+In *Hosts-A* subnet I choose to use DHCP to assign IPs to the hosts.
+**router-1** act as a DHCP server for *Hosts-A* subnet.
+
 ## Subnets
 
 | Subnet | Subnet address | Prefix | Usable addresses  | Devices |
