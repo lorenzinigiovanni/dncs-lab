@@ -26,7 +26,7 @@ This repository contains the Vagrant files required to run the virtual lab envir
         |  E  |                      |enp0s8               |          |
         |  M  |            +-------------------+           |          |
         |  E  |      enp0s3|                   |           |  host-c  |
-        |  N  +------------+      SWITCH       |           |          |
+        |  N  +------------+      switch       |           |          |
         |  T  |            |                   |           |          |
         |     |            +-------------------+           +----------+
         |  V  |               |enp0s9       |enp0s10             |enp0s3
@@ -100,9 +100,9 @@ The assignment deliverable consists of a Github repository containing:
 - an updated answers.yml file containing the details of 
 
 ## Design Requirements
-- Hosts 1-a and 1-b are in two subnets (*Hosts-A* and *Hosts-B*) that must be able to scale up to respectively 175 and 213 usable addresses
-- Host 2-c is in a subnet (*Hub*) that needs to accommodate up to 118 usable addresses
-- Host 2-c must run a docker image (dustnic82/nginx-test) which implements a web-server that must be reachable from Host-1-a and Host-1-b
+- **host-a** and **host-b** are in two subnets (*Hosts-A* and *Hosts-B*) that must be able to scale up to respectively 175 and 213 usable addresses
+- **host-c** is in a subnet (*Hub*) that needs to accommodate up to 118 usable addresses
+- **host-c** must run a docker image (dustnic82/nginx-test) which implements a web-server that must be reachable from **host-a** and **host-b**
 - No dynamic routing can be used
 - Routes must be as generic as possible
 - The lab setup must be portable and executed just by launching the `vagrant up` command
@@ -132,8 +132,8 @@ The assignment deliverable consists of a Github repository containing:
 
 | Subnet | Subnet address | Prefix | Usable addresses  | Devices |
 | :---: |  :---: | :---: | :---: | :---: |
-| Host-A | 192.168.1.0 | /24 | 254 | host-a (enp0s8)<br>router-1 (enp0s8.1) |
-| Host-B | 192.168.2.0 | /24 | 254 | host-b (enp0s8)<br>router-1 (enp0s8.2) |
+| Hosts-A | 192.168.1.0 | /24 | 254 | host-a (enp0s8)<br>router-1 (enp0s8.1) |
+| Hosts-B | 192.168.2.0 | /24 | 254 | host-b (enp0s8)<br>router-1 (enp0s8.2) |
 | Hub | 192.168.3.0 | /25 | 126 | host-c (enp0s8)<br>router-2 (enp0s8) |
 | D | 192.168.3.128 | /30 | 2 | router-1 (enp0s9)<br>router-2 (enp0s9) |
 
@@ -141,8 +141,8 @@ The assignment deliverable consists of a Github repository containing:
 
 | Subnet | VLAN ID | Switch interface | Router interface |
 | :---: |  :---: | :---: | :---: |
-| Host-A | 1 | enp0s9 | enp0s8.1 |
-| Host-B | 2 | enp0s10 | enp0s8.2 |
+| Hosts-A | 1 | enp0s9 | enp0s8.1 |
+| Hosts-B | 2 | enp0s10 | enp0s8.2 |
 
 ## Switch Ports
 
@@ -156,11 +156,11 @@ The assignment deliverable consists of a Github repository containing:
 
 | Device | Interface | Subnet | IP | Prefix | 
 | :---: |  :---: | :---: | :---: | :---: |
-| host-a | enp0s8 | Host-A | DHCP | /24 |
-| host-b | enp0s8 | Host-B | 192.168.2.2 | /24 |
+| host-a | enp0s8 | Hosts-A | DHCP | /24 |
+| host-b | enp0s8 | Hosts-B | 192.168.2.2 | /24 |
 | host-c | enp0s8 | Hub | 192.168.3.2 | /25 |
-| router-1 | enp0s8.1 | Host-A | 192.168.1.1 | /24 |
-| router-1 | enp0s8.2 | Host-B | 192.168.2.1 | /24 |
+| router-1 | enp0s8.1 | Hosts-A | 192.168.1.1 | /24 |
+| router-1 | enp0s8.2 | Hosts-B | 192.168.2.1 | /24 |
 | router-1 | enp0s9 | D | 192.168.3.129 | /30 |
 | router-2 | enp0s8 | Hub | 192.168.3.1 | /25 |
 | router-2 | enp0s9 | D | 192.168.3.130 | /30 |
@@ -223,7 +223,7 @@ $ dhclient enp0s8
 
 ## host-b provisioning shell script
 
-Assign an IP address of Host-B subnet
+Assign an IP address of Hosts-B subnet
 ```
 $ ip addr add 192.168.2.2/24 dev enp0s8
 ```
