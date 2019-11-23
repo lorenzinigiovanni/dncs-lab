@@ -133,13 +133,37 @@ The assignment deliverable consists of a Github repository containing:
 Four subnets are necessary, the three indicated in the design requirements and one to link the routers (*D* subnet).
 To keep *Hosts-A* and *Hosts-B* subnets separate I've used two VLANs.
 
-The **switch** is link by a trunk link to **router-1**.
+The **switch** is linked by a trunk link to **router-1**.
 In this link flow VLAN tagged traffic.
 **host-a** and **host-b** are linked to **switch** through two access ports.
 
 In *Hosts-B*, *Hub* and *D* subnets all the IP addresses are statically assigned to routers and hosts.
-In *Hosts-A* subnet I choose to use DHCP to assign IPs to the hosts.
+In *Hosts-A* subnet I choosed to use DHCP to assign IPs to the hosts.
 **router-1** act as a DHCP server for *Hosts-A* subnet.
+
+## Subnetting
+
+An IP address is composed by 4 bytes = 32 bits.
+With 32 bits we can have 2<sup>32</sup> = 4,294,967,296 hosts.
+To obtain the smallest subnet required by the assignment I need to subnet the network.
+
+To achieve this a part of the IP is used to identify the net (network prefix) and a part to identify the host (host identifier).
+The number of bits of the prefix (N) are append to the address after a slash.
+
+Number of hosts in a network is M = 2<sup>32-N</sup> - 2.
+Minus 2 because an all 1 bit host identifier is reserved for broadcast and an all 0 bit host identifier is reserved for network.
+
+For example in *Hub* subnet 118 addresses are needed, so M must be larger than 118.
+The minimum value of N to achieve this is 25.
+The usable addresses are then 2<sup>32-25</sup> - 2 = 2<sup>7</sup> - 2 = 126.
+
+## Routing
+
+The routers choose the next-hop for a packet according to destination IP and the routing table.
+The most specific entry in the routing table for a packet is considered.
+
+To keep routes as generic as possibile I have manually set only default routes. 
+If the host/router don't have a more specific route for the packet it will be sent to the default gateway.
 
 ## Subnets
 
